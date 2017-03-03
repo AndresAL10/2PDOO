@@ -241,7 +241,7 @@ public class PruebaNapakalaki {
         System.out.println("MONSTRUOS CUYO BUEN ROLLO ES GANANCIA DE NIVEL SUPERIOR A 1");
         System.out.println( gananciaSuperiorA1.toString());
         
-        System.out.println("---------------------------------------------------------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------------------------------");
         System.out.println("MONSTRUOS CUYO MAL ROLLO ES UNA PERDIDA ESPECIFICA DE ARMADURA");
         System.out.println( perdidaEspecificaArmor.toString());
    
