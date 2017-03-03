@@ -1,7 +1,6 @@
 package napakalaki;
 
 /**
- *
  * @author Andres Arco Lopez
  */
 public class Prize {
