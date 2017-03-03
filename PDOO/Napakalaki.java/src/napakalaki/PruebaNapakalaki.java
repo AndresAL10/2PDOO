@@ -2,6 +2,7 @@ package napakalaki;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 /**
  *
  * @author Andres Arco Lopez
@@ -36,9 +37,9 @@ public class PruebaNapakalaki {
     static ArrayList<Monster> GananciaNivel(ArrayList<Monster>monstruos){
         ArrayList<Monster>mons = new ArrayList();
         
-        for(int i=0;i<monstruos.size();++i){
-            if(monstruos.get(i).getPrize().getLevel()>1)
-                mons.add(monstruos.get(i));
+        for(Monster monstruo:monstruos){
+            if(monstruo.getPrize().getLevel()>1)
+                mons.add(monstruo);
         }
         return mons;
     }
@@ -46,15 +47,20 @@ public class PruebaNapakalaki {
     static ArrayList<Monster> PerdidaEspecifica(ArrayList<Monster>monstruos,TreasureKind treasurekind){
         ArrayList<Monster>mons = new ArrayList();
         
-        for(int i=0;i<monstruos.size();++i){
-            if(monstruos.get(i).getBadConsequence().getSpecificHiddenTreasures().isEmpty() == false || monstruos.get(i).getBadConsequence().getSpecificVisibleTreasures().isEmpty()==true)
-                for(int j=0;j< monstruos.get(i).getBadConsequence().getSpecificHiddenTreasures().size(); ++j)
-                    if(monstruos.get(i).getBadConsequence().getSpecificHiddenTreasures().get(j) == treasurekind)
-                        mons.add(monstruos.get(i));
-                for(int k=0;k< monstruos.get(i).getBadConsequence().getSpecificVisibleTreasures().size(); ++k)
-                    if(monstruos.get(i).getBadConsequence().getSpecificVisibleTreasures().get(k) == treasurekind)
-                        mons.add(monstruos.get(i));
+        for(Monster monstruo:monstruos){
+            if(monstruo.getBadConsequence().getSpecificHiddenTreasures().isEmpty() == false || monstruo.getBadConsequence().getSpecificVisibleTreasures().isEmpty()==true)
+                for(int j=0;j< monstruo.getBadConsequence().getSpecificHiddenTreasures().size(); ++j)
+                    if(monstruo.getBadConsequence().getSpecificHiddenTreasures().get(j) == treasurekind)
+                        mons.add(monstruo);
+                for(int k=0;k< monstruo.getBadConsequence().getSpecificVisibleTreasures().size(); ++k)
+                    if(monstruo.getBadConsequence().getSpecificVisibleTreasures().get(k) == treasurekind)
+                        mons.add(monstruo);
         }
+        LinkedHashSet<Monster> mon= new LinkedHashSet<Monster>();
+        mon.addAll(mons);
+        mons.clear();
+        mons.addAll(mon);
+        
         return mons;
     }
     
