@@ -1,38 +1,35 @@
-# To change this license header, choose License Headers in Project Properties.
-# To change this template file, choose Tools | Templates
-# and open the template in the editor.
-
 #module Napakalaki
 
 class BadConsequence
   
-  attr_reader :text, :level, :nVisibleTreasures, :nHiddenTreasures
+  attr_reader :text, :levels, :nVisibleTreasures, :nHiddenTreasures,
+    :specificVisibleTreasures, :specificHiddenTreasures, :death
   
-  def initialize(texto, nivel, nvisible, nhidden)
+  def initialize(texto, nivel, nvisible, nhidden,nSvisible,nShidden,death)
         @text = texto
-        @level = nivel
+        @levels = nivel
         @nVisibleTreasures = nvisible
         @nHiddenTreasures = nhidden
+        @specificVisibleTreasures = nSvisible
+        @specificHiddenTreasures = nShidden
+        @death = death
   end
   
-  def get_text
-      @text
-  end
-  
-  def get_level
-      @level
-  end
-  
-  def getn_visible_treasures
-      @nVisibleTreasures
-  end
-  
-  def getn_hiden_treasures
-      @nHiddenTreasures
-  end
   
   def to_s
-      "Texto: #{@text}\nNiveles perdidos: #{@level}"   
+      mensaje = "\n\tTexto: #{@text}\n\tNiveles perdidos: #{@levels}"   
+      mensaje += "\n\tTesoros visibles perdidos: #{@nVisibleTreasures}"
+      mensaje += "\n\tTesoros ocultos perdidos: #{@nHiddenTreasures}"
+      mensaje += "\n\tTesoros especificos visibles perdidos: #{@specificVisibleTreasures}"
+      mensaje += "\n\tTesoros especificos ocultos perdidos: #{@specificHiddenTreasures}"
+      
+      if death
+        mensaje += "\n\tMuerte: Si"
+      else
+        mensaje += "\n\tMuerte: No"
+      end
+      mensaje
   end
+  
 end  
   

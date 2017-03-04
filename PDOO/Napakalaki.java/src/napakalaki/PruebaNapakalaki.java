@@ -45,27 +45,12 @@ public class PruebaNapakalaki {
     
     static ArrayList<Monster> PerdidaEspecifica(ArrayList<Monster>monstruos,TreasureKind treasurekind){
         ArrayList<Monster>mons = new ArrayList();
-        ArrayList<TreasureKind>hiddentreasures = new ArrayList();
-        ArrayList<TreasureKind>visibletreasures = new ArrayList();
-        
-        for(Monster monstruo:monstruos){
-            hiddentreasures = monstruo.getBadConsequence().getSpecificHiddenTreasures();
-            for(TreasureKind treasure1:hiddentreasures)
-                if(treasure1 == treasurekind)
-                    if(!mons.contains(monstruo))
-                        mons.add(monstruo);
-                    
-            visibletreasures = monstruo.getBadConsequence().getSpecificVisibleTreasures();
-            for(TreasureKind treasure2:visibletreasures)
-                if(treasure2 == treasurekind)
-                    if(!mons.contains(monstruo))
-                        mons.add(monstruo); 
-        }
-        /*LinkedHashSet<Monster> mon= new LinkedHashSet<Monster>();
-        mon.addAll(mons);
-        mons.clear();
-        mons.addAll(mon);*/
-        
+       
+        for(Monster monstruo:monstruos)
+            if(monstruo.getBadConsequence().getSpecificHiddenTreasures().contains(treasurekind) ||
+               monstruo.getBadConsequence().getSpecificVisibleTreasures().contains(treasurekind))
+                    mons.add(monstruo);
+     
         return mons;
     }
     
