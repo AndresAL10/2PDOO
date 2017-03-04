@@ -2,7 +2,6 @@ package napakalaki;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashSet;
 /**
  *
  * @author Andres Arco Lopez
@@ -46,20 +45,26 @@ public class PruebaNapakalaki {
     
     static ArrayList<Monster> PerdidaEspecifica(ArrayList<Monster>monstruos,TreasureKind treasurekind){
         ArrayList<Monster>mons = new ArrayList();
+        ArrayList<TreasureKind>hiddentreasures = new ArrayList();
+        ArrayList<TreasureKind>visibletreasures = new ArrayList();
         
         for(Monster monstruo:monstruos){
-            if(monstruo.getBadConsequence().getSpecificHiddenTreasures().isEmpty() == false || monstruo.getBadConsequence().getSpecificVisibleTreasures().isEmpty()==true)
-                for(int j=0;j< monstruo.getBadConsequence().getSpecificHiddenTreasures().size(); ++j)
-                    if(monstruo.getBadConsequence().getSpecificHiddenTreasures().get(j) == treasurekind)
+            hiddentreasures = monstruo.getBadConsequence().getSpecificHiddenTreasures();
+            for(TreasureKind treasure1:hiddentreasures)
+                if(treasure1 == treasurekind)
+                    if(!mons.contains(monstruo))
                         mons.add(monstruo);
-                for(int k=0;k< monstruo.getBadConsequence().getSpecificVisibleTreasures().size(); ++k)
-                    if(monstruo.getBadConsequence().getSpecificVisibleTreasures().get(k) == treasurekind)
-                        mons.add(monstruo);
+                    
+            visibletreasures = monstruo.getBadConsequence().getSpecificVisibleTreasures();
+            for(TreasureKind treasure2:visibletreasures)
+                if(treasure2 == treasurekind)
+                    if(!mons.contains(monstruo))
+                        mons.add(monstruo); 
         }
-        LinkedHashSet<Monster> mon= new LinkedHashSet<Monster>();
+        /*LinkedHashSet<Monster> mon= new LinkedHashSet<Monster>();
         mon.addAll(mons);
         mons.clear();
-        mons.addAll(mon);
+        mons.addAll(mon);*/
         
         return mons;
     }
