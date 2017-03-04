@@ -5,5 +5,5 @@ module TreasureKind
     ONEHAND = :onehand
     BOTHHANDS = :bothhands
     HELMET = :helmet
-    SHOE = :shoe
+    SHOES = :shoes
 end

@@ -1,11 +1,11 @@
-require_relative 'prize'
-require_relative 'bad_consequence'
+require_relative "prize.rb"
+require_relative "bad_consequence.rb"
 
 #module Napakalaki
 
 class Monster
   
-  attr_reader :name, :combatlevel, :prize, :badConsequence,
+  attr_reader :name, :combatlevel, :prize, :badConsequence
  
   def initialize( nombre, nivel, buenrollo, malrollo)
     @name = nombre
