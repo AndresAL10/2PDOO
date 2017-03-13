@@ -5,17 +5,17 @@ require_relative "bad_consequence.rb"
 
 class Monster
   
-  attr_reader :name, :combatlevel, :prize, :badConsequence
+  attr_reader :name, :combatLevel, :prize, :badConsequence
  
   def initialize( nombre, nivel, buenrollo, malrollo)
     @name = nombre
-    @combatlevel = nivel
+    @combatLevel = nivel
     @prize = buenrollo
     @badConsequence = malrollo 
   end
   
   def to_s
-    mensaje = "\nNombre: #{@name} \nNivel de combate: #{@combatlevel}"
+    mensaje = "\nNombre: #{@name} \nNivel de combate: #{@combatLevel}"
     mensaje += "\nPremio: #{@prize} \nMal rollo: #{@badConsequence}"
   end
   
