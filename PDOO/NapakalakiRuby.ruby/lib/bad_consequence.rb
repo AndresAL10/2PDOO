@@ -1,6 +1,9 @@
+#encoding: utf-8
 #module Napakalaki
 
 class BadConsequence
+  
+  private_class_method :new
   
   attr_reader :text, :levels, :nVisibleTreasures, :nHiddenTreasures,
     :specificVisibleTreasures, :specificHiddenTreasures, :death
@@ -15,16 +18,16 @@ class BadConsequence
         @death = death
   end
   
-  def BadConsequence.newLevelNumberOfTreasures(aText, someLevels,someVisibleTreasures, someHiddenTreasures)
-    BadConsequence.new(aText,someLevels,someVisibleTreasures,someHiddenTreasures,[],[],false)
+  def self.newLevelNumberOfTreasures(aText, someLevels,someVisibleTreasures, someHiddenTreasures)
+    new(aText,someLevels,someVisibleTreasures,someHiddenTreasures,[],[],false)
   end
   
-  def BadConsequence.newLevelSpecificTreasures(aText, someLevels, someSpecificVisibleTreasures, someSpecificHiddenTreasures)
-    BadConsequence.new(aText,someLevels, 0,0,someSpecificVisibleTreasures,someSpecificHiddenTreasures,false)
+  def self.newLevelSpecificTreasures(aText, someLevels, someSpecificVisibleTreasures, someSpecificHiddenTreasures)
+    new(aText,someLevels, 0,0,someSpecificVisibleTreasures,someSpecificHiddenTreasures,false)
   end
   
-  def BadConsequence.newDeath (aText)
-    BadConsequence.new(aText,0,0,0,[],[],true)    
+  def self.newDeath (aText)
+    new(aText,0,0,0,[],[],true)    
   end
   
   def to_s

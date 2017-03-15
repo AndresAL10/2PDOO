@@ -1,3 +1,4 @@
+#encoding: utf-8
 require_relative "prize.rb"
 require_relative "bad_consequence.rb"
 
