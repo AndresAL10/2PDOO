@@ -206,7 +206,6 @@ class PruebaNapakalaki
     }
   end
   
-  
   def imprimirMonstruos(monsters)
     for monstruo in monsters 
       puts monstruo

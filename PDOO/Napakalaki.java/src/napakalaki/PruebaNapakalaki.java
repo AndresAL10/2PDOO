@@ -239,18 +239,30 @@ public class PruebaNapakalaki {
         System.out.println("---------------------------------------------------------------------------------------------------------");
         System.out.println("MONSTRUOS CUYO MAL ROLLO ES UNA PERDIDA ESPECIFICA DE ARMADURA");
         System.out.println( perdidaEspecificaArmor.toString());
-   
+        
+        System.out.println("---------------------------------------------------------------------------------------------------------");
         System.out.println("MONSTRUOS CUYO MAL ROLLO ES UNA PERDIDA ESPECIFICA DE DOS MANOS");
         System.out.println( perdidaEspecificaBothHands.toString());
         
+        System.out.println("---------------------------------------------------------------------------------------------------------");
         System.out.println("MONSTRUOS CUYO MAL ROLLO ES UNA PERDIDA ESPECIFICA DE CASCO");
         System.out.println( perdidaEspecificaHelmet.toString());
         
+        System.out.println("---------------------------------------------------------------------------------------------------------");
         System.out.println("MONSTRUOS CUYO MAL ROLLO ES UNA PERDIDA ESPECIFICA DE UNA MANO");
         System.out.println( perdidaEspecificaOneHand.toString());
     
+        System.out.println("---------------------------------------------------------------------------------------------------------");
         System.out.println("MONSTRUOS CUYO MAL ROLLO ES UNA PERDIDA ESPECIFICA DE CALZADO");
         System.out.println( perdidaEspecificaShoes.toString());
+        
+        System.out.println("---------------------------------------------------------------------------------------------------------");
+        System.out.println("---------------------------------------------------------------------------------------------------------");
+       
+        Test test = new Test(Test.testClase());
+        test.testInstancia();
+        
+        
     }
     
 }
