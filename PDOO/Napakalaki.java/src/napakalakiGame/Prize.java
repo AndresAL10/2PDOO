@@ -1,4 +1,4 @@
-package napakalaki;
+package napakalakiGame;
 
 /**
  * @author Andres Arco Lopez

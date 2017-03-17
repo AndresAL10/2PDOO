@@ -1,4 +1,4 @@
-package napakalaki;
+package napakalakiGame;
 
 import java.util.ArrayList;
 /**
