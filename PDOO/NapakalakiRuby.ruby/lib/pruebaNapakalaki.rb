@@ -5,11 +5,11 @@ require_relative "monster"
 require_relative "bad_consequence"
 require_relative "treasure_kind"
 require_relative "prize"
+require_relative "test"
 
 class PruebaNapakalaki
-        
   
-  attr_reader :monsters
+  #attr_reader :monsters
 
 
   def initialize
@@ -214,5 +214,5 @@ class PruebaNapakalaki
   
 end
  
-PruebaNapakalaki.new.main
+#PruebaNapakalaki.new.main
 

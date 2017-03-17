@@ -1,9 +1,38 @@
-# To change this license header, choose License Headers in Project Properties.
-# To change this template file, choose Tools | Templates
-# and open the template in the editor.
+#encoding: utf-8
+
 
 class Test
+  
+  attr_reader :monster
+  
+  prize = Prize.new(0,0)
+  badConsequence = BadConsequence.newLevelSpecificTreasures("------",0, [], [])
+  @@monster = Monster.new("----------",0,prize,badConsequence)
+  
   def initialize
-    
+  prize = Prize.new(0,0)
+  badConsequence = BadConsequence.newLevelSpecificTreasures("------",0, [], [])
+  @monster = Monster.new("----------",0,prize,badConsequence)
+  end
+
+  def testClase
+    prize = Prize.new(0,0)
+    badConsequence = BadConsequence.newLevelSpecificTreasures("------",0, [], [])
+    @@monster = Monster.new("-----Prueba test-----",0,prize,badConsequence)
+  end
+  
+  def testInstancia
+    @monster = @@monster
+    puts @monster
+  end
+  
+  def main 
+    test = Test.new
+    test.testClase
+    test.testInstancia
   end
 end
+
+puts "PRUEBA CLASE TEST"
+Test.new.main
+

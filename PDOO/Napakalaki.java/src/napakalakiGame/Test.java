@@ -12,7 +12,7 @@ public class Test {
     static Monster monstruo;
     
     public Test(Monster monstruo){
-        monstruo = monstruo;
+        this.monstruo = monstruo;
    }
     static public Monster testClase(){
         BadConsequence badConsequence;
