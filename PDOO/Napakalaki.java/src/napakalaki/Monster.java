@@ -2,7 +2,8 @@ package napakalaki;
 
 /**
  *
- * @author Andres Arco Lopez
+ * @author Andres Arco Lopez y Miguel Angel Cantarero Lopez
+ * 
  */
 public class Monster {
     private String name;
