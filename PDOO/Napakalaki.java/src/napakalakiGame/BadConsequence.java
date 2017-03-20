@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * @author Andres Arco Lopez
  */
 public class BadConsequence {
+    
     private String text;
     
     private int levels;
