@@ -6,6 +6,7 @@ require_relative "bad_consequence"
 require_relative "treasure_kind"
 require_relative "prize"
 require_relative "test"
+module NapakalakiGame
 
 class PruebaNapakalaki
   
@@ -48,8 +49,7 @@ class PruebaNapakalaki
   end
 
   def crearListaMonstruos
-
-
+    
   #[0]
   prize = Prize.new(2,1)
   badConsequence = BadConsequence.newLevelSpecificTreasures("Pierdes tu armadura visible y otra oculta.",0, [TreasureKind::ARMOR], [TreasureKind::ARMOR])
@@ -72,7 +72,7 @@ class PruebaNapakalaki
 
   #[4]
   prize = Prize.new(3, 1)
-  badConsequence = BadConsequence.newLevelNumberOfTreasures("Pierdes todos tus tesoros visibles.", 0, 5, 0)
+  badConsequence = BadConsequence.newLevelNumberOfTreasures("Pierdes todos tus tesoros visibles.", 0, BadConsequence::MAXTREASURES, 0)
   @@monsters << Monster.new("El gorrón en el umbral", 13, prize, badConsequence)
 
   #[5]
@@ -183,26 +183,25 @@ class PruebaNapakalaki
   end
   
   def nivelSuperiorA10
-    @@monsters.select{|monster| monster.combatLevel > 10}
+    @@monsters.select{|monster| monster.getCombatLevel > 10}
   end
   
   def soloPerdidaLevel
-    @@monsters.select {|monster| monster.badConsequence.levels != 0 &&
-        monster.badConsequence.nVisibleTreasures == 0 && 
-        monster.badConsequence.nHiddenTreasures == 0 &&
-        monster.badConsequence.specificHiddenTreasures.empty? == true &&
-        monster.badConsequence.specificVisibleTreasures.empty? == true &&
-        monster.badConsequence.death == false
-    }
+    @@monsters.select {|monster| monster.getBadConsequence.getLevels != 0 &&
+        monster.getBadConsequence.getNVisibleTreasures == 0 && 
+        monster.getBadConsequence.getNHiddenTreasures == 0 &&
+        monster.getBadConsequence.getSpecificHiddenTreasures.empty? == true &&
+        monster.getBadConsequence.getSpecificVisibleTreasures.empty? == true
+     }
   end
   
   def gananciaNivel
-    @@monsters.select{ |monster| monster.prize.level > 1}
+    @@monsters.select{ |monster| monster.getLevelsGained > 1}
   end
   
   def perdidaEspecifica(tipoTesoro)
-    @@monsters.select{ |monster| monster.badConsequence.specificHiddenTreasures.include?(tipoTesoro) ||
-        monster.badConsequence.specificVisibleTreasures.include?(tipoTesoro)
+    @@monsters.select{ |monster| monster.getBadConsequence.getSpecificHiddenTreasures.include?(tipoTesoro) ||
+        monster.getBadConsequence.getSpecificVisibleTreasures.include?(tipoTesoro)
     }
   end
   
@@ -214,5 +213,5 @@ class PruebaNapakalaki
   
 end
  
-#PruebaNapakalaki.new.main
-
+PruebaNapakalaki.new.main
+end

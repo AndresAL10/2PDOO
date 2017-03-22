@@ -1,18 +1,21 @@
 #encoding: utf-8
 
+require_relative "prize"
+require_relative "monster"
+require_relative "bad_consequence"
+require_relative "treasure_kind"
+module NapakalakiGame
 
 class Test
-  
-  attr_reader :monster
   
   prize = Prize.new(0,0)
   badConsequence = BadConsequence.newLevelSpecificTreasures("------",0, [], [])
   @@monster = Monster.new("----------",0,prize,badConsequence)
   
   def initialize
-  prize = Prize.new(0,0)
-  badConsequence = BadConsequence.newLevelSpecificTreasures("------",0, [], [])
-  @monster = Monster.new("----------",0,prize,badConsequence)
+    prize = Prize.new(0,0)
+    badConsequence = BadConsequence.newLevelSpecificTreasures("------",0, [], [])
+    @monster = Monster.new("----------",0,prize,badConsequence)
   end
 
   def testClase
@@ -28,11 +31,11 @@ class Test
   
   def main 
     test = Test.new
-    test.testClase
-    test.testInstancia
+    test.testClase()
+    test.testInstancia()
   end
 end
 
 puts "PRUEBA CLASE TEST"
 Test.new.main
-
+end
