@@ -1,23 +1,20 @@
 #encoding: utf-8
 
 #include
+
 require_relative "monster"
 require_relative "bad_consequence"
 require_relative "treasure_kind"
 require_relative "prize"
 require_relative "test"
+
 module NapakalakiGame
 
 class PruebaNapakalaki
   
-  #attr_reader :monsters
-
-
-  def initialize
-    @@monsters = []
-  end
-
   def main
+    @@monsters = []
+    
     crearListaMonstruos
     puts "LISTA DE TODOS LOS MONSTRUOS"
     imprimirMonstruos(@@monsters)

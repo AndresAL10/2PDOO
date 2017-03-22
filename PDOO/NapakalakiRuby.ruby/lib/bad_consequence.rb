@@ -88,6 +88,7 @@ module NapakalakiGame
         else
           mensaje += "\n\tMuerte: No"
         end
+        
         mensaje
     end
 

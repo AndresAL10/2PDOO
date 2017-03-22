@@ -5,12 +5,16 @@ require_relative "treasure_kind"
 module Napakalaki Game
 
   class Treasure
-
+    
+    private
+    
     def initialize(n, bonus, t)
       @name = n
       @bonus = bonus
       @type = t
     end
+    
+    public
 
     def getName
       @name
