@@ -11,10 +11,10 @@ module NapakalakiGame
     private
     
     def initialize
-      @unusedMonsters = Array.new()
-      @usedMonsters = Array.new()
-      @unusedTreasures = Array.new()
-      @usedTreasures = Array.new()
+      @unusedMonsters = Array.new
+      @usedMonsters = Array.new
+      @unusedTreasures = Array.new
+      @usedTreasures = Array.new
       
       initTreasureCardDeck
       initMonsterCardDeck

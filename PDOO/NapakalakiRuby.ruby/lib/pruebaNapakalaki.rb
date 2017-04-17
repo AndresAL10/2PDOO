@@ -208,7 +208,17 @@ class PruebaNapakalaki
     end
   end
   
+  def seleccionauno
+    @@monsters[0]
+  end
+  
 end
  
 PruebaNapakalaki.new.main
+
+puts "AQUIII"
+puts PruebaNapakalaki.new.seleccionauno
+for i in 0..10
+  puts rand(3)+1
+end
 end

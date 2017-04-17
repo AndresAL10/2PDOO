@@ -73,7 +73,27 @@ module NapakalakiGame
     end
     
     def adjustToFitTreasureLists(v, h)
-      
+      if (!isEmpty) 
+        if(@nVisbleTreasures  <= v.size)
+          nVT = @nVisibleTreasures
+        else
+          nVT = v.size
+        end
+        
+        if (@nhiddenTreasures <= h.size)
+          nHT = @nHiddenTreasures 
+        else 
+          nHT = h.size
+        end
+        
+        vTypes = v.collect{ |vis| vis.getType}
+        hTypes = h.collect{ |hid| hid.getType}
+        
+        specVT = @specificVisibleTreasures & vTypes
+        specHT = @specificHiddenTreasures & hTypes
+        
+      badConsequence.new("Bad Consequence Pendiente", 0, nVT, nHT, specVT, specHT,false)
+      end  
     end
     
     def to_s
