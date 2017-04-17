@@ -199,11 +199,25 @@ module NapakalakiGame
     end
     
     def nextTreasure
-      
+      if(@unusedTreasures.empty?)
+        for usedT in @unusedTreasures
+          @unusedTreasures << usedT
+          @usedTreassures.delete(usedT)
+        end
+        suffleTreasures
+      end
+      @unusedTreasures.pop
     end
     
     def nextMonster
-      
+      if(@unusedMonsters.empty?)
+        for usedM in @unusedMonsters
+          @unusedMonsters << usedM
+          @usedMonsters.delete(usedM)
+        end
+        suffleMonsters
+      end
+      @unusedMonsters.pop
     end
     
     def giveTreasureBack(t)
@@ -215,7 +229,10 @@ module NapakalakiGame
     end
     
     def initCards
-      
+      initTreasureCardDeck
+      initMonsterCardDeck
+      shuffleTreasures
+      shuffleMonsters
     end
     
   end

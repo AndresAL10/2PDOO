@@ -65,11 +65,29 @@ module NapakalakiGame
     end
     
     def substractVisibleTreasures(t)
-      #No se sabe todavia
+      if (!isEmpty)
+        if (!@specificVisibleTreasures.empty?)
+          @specificVisibleTreasures.delete (t.getType)
+        else
+          @nVisibleTreasures = @nVisibleTreasures - 1
+          if (@nVisbleTreasures < 0)
+            @nVisibleTreasures = 0
+          end
+        end
+      end
     end
     
     def substractHiddenTreasures(t)
-      #No se sabe todavia
+      if (!isEmpty)
+        if (!@specificHiddenTreasures.empty?)
+          @specificHiddenTreasures.delete (t.getType)
+        else
+          @nHiddenTreasures = @nHiddenTreasures - 1
+          if (@nHiddenTreasures < 0)
+            @nHiddenTreasures = 0
+          end
+        end
+      end
     end
     
     def adjustToFitTreasureLists(v, h)
@@ -92,7 +110,7 @@ module NapakalakiGame
         specVT = @specificVisibleTreasures & vTypes
         specHT = @specificHiddenTreasures & hTypes
         
-      badConsequence.new("Bad Consequence Pendiente", 0, nVT, nHT, specVT, specHT,false)
+      BadConsequence.new("Bad Consequence Pendiente", 0, nVT, nHT, specVT, specHT,false)
       end  
     end
     

@@ -100,9 +100,19 @@ module NapakalakiGame
     end
     
     def nextTurn
-      
+      stateOK = nextTurnAllowed
+      if (stateOK)
+        @currentMonster = @dealer.nextMonster
+        @currentPlayer = nextPlayer
+        dead = @currentPlayer.isDead
+        
+        if (dead)
+          @currentPlayer.initTreasures
+        end
+      end
+      stateOK
     end
-    
+   
     def endOfGame(result)
       res = result == CombatResult::WINGAME
       return res

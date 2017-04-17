@@ -130,11 +130,11 @@ module NapakalakiGame
     end
     
     def getHiddenTreasures
-      
+      @hiddenTreasures
     end
     
     def getVisibleTreasures
-      
+      @visibleTreasures
     end
     
     def combat(m)
