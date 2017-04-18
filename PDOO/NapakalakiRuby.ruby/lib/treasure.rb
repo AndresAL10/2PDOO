@@ -2,7 +2,7 @@
 
 require_relative "treasure_kind"
 
-module Napakalaki Game
+module NapakalakiGame
 
   class Treasure
     

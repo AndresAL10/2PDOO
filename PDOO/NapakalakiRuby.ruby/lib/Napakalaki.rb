@@ -1,10 +1,11 @@
-# To change this license header, choose License Headers in Project Properties.
-# To change this template file, choose Tools | Templates
-# and open the template in the editor.
+#encoding: utf-8
+
+require "singleton"
+require_relative "card_dealer"
+require_relative "player"
+require_relative "combat_result"
 
 module NapakalakiGame
-  
-  require "singleton"
   
   class Napakalaki
     
@@ -16,7 +17,7 @@ module NapakalakiGame
       @currentMonster = nil
       @currentPlayer = nil
       @players = Array.new
-      @dealer = CardDealer.instance
+      @dealer = CardDealer.instance 
     end
     
     def initPlayers(names)
@@ -30,24 +31,26 @@ module NapakalakiGame
         @currentPlayer = @players.at(rand(@players.size))
       else
         indice = @players.index(@currentPlayer)
-        if (@players.size -1) == indice
+        if (@players.size() - 1) == indice
           indice = 0
         else
-          indice = @currentPlayer + 1
+          indice += 1
         end
+        @currentPlayer = @players.at(indice)
       end 
-      return @currentPlayer = @players.at(indice)
+      @currentPlayer
     end
     
     def nextTurnAllowed
       allowed = false;
-      allowed = (@currentPLayer == nil) || @currentPLayer.validState
+      allowed = (@currentPlayer == nil) || @currentPlayer.validState
     end
     
     def setEnemies
+      enemigo = @players.at(0)
       for player in @players
         loop do 
-        enemigo = @players.at(rand(@players.size))
+         enemigo = @players.at(rand(@players.size))
         break if (player != enemigo)
         end
         player.setEnemy(enemigo)
@@ -58,25 +61,24 @@ module NapakalakiGame
     public 
     
     def developCombat
-      cres = @currentPLayer.combat(@currentMonster)
+      combatResult = @currentPlayer.combat(@currentMonster)
       @dealer.giveMonsterBack(@currentMonster)
-      return cres
+      return combatResult
     end
     
     def discardVisibleTreasures(treasures)
       for treasure in treasures
-        treas = treasure
-        @currentPlayer.discardVisibleTreasure(treas)
-        @dealer.giveTreasureBack(treas)
+        @currentPlayer.discardVisibleTreasure(treasure)
+        @dealer.giveTreasureBack(treasure)
       end
     end
     
     def discardHiddenTreasures(treasures)
       for treasure in treasures
-        treas = treasure
-        @currentPlayer.discardHiddenTreasure(treas)
-        @dealer.giveTreasureBack(treas)
+        @currentPlayer.discardHiddenTreasure(treasure)
+        @dealer.giveTreasureBack(treasure)
       end
+    end
     
     def makeTreasuresVisible(treasures)
       for treasure in treasures
@@ -85,7 +87,7 @@ module NapakalakiGame
     end
     
     def initGame(players)
-      initPLayers(players)
+      initPlayers(players)
       setEnemies
       @dealer.initCards
       nextTurn

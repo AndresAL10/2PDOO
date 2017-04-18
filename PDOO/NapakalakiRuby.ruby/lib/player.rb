@@ -1,6 +1,14 @@
 #encoding: utf-8
 
+require_relative "treasure"
+require_relative "bad_consequence"
+require_relative "combat_result"
+require_relative "prize"
+require_relative "card_dealer"
+require_relative "dice"
+
 module NapakalakiGame
+  
   class Player
     
     MAXLEVEL = 10
@@ -13,8 +21,8 @@ module NapakalakiGame
       @enemy = nil
       @level = 1
       @canISteal = true
-      @hiddenTreasures = 0
-      @visibleTreasures = 0
+      @hiddenTreasures = Array.new
+      @visibleTreasures = Array.new
       @pendingBadConsequence = nil
       
     end
@@ -28,7 +36,7 @@ module NapakalakiGame
     private
     
     def bringToLife
-      @dead = true
+      @dead = false
     end
     
     def getCombatLevel
@@ -46,7 +54,7 @@ module NapakalakiGame
     def decrementLevels(i)
       @level = @level - i
       if @level <= 0 
-      @level = 1
+        @level = 1
       end
     end
     
@@ -71,45 +79,43 @@ module NapakalakiGame
     end
     
     def applyBadConsequence(m)
-      badConsequence = m.getBadConsecuence
+      badConsequence = m.getBadConsequence
       nLevels = badConsequence.getLevels
       decrementLevels(nLevels)
       
       pendingBad = badConsequence.adjustToFitTreasureLists(@visibleTreasures, @hiddenTreasures)
       setPendingBadConsequence(pendingBad)
-      #applyBadConsequence(@pendingBadConsequence)
-      #@pendingBadConsequence = nil
     end
     
     def canMakeTreasureVisible(t)
-      manos=0
-      armadura=0
-      casco=0
-      pies=0
+      @@manos=0
+      @@armadura=0
+      @@casco=0
+      @@pies=0
       for tes in @visibleTreasures
         if tes.getType == TreasureKind::ONEHAND
-          manos = manos+1
-        elsif tes.getType == TreasureKind::BOTHANDS
-          manos = manos+2
+          @@manos += 1
+        elsif tes.getType == TreasureKind::BOTHHANDS
+          @@manos += 2
         elsif tes.getType == TreasureKind::HELMET
-          casco = casco+1
+          @@casco += 1
         elsif tes.getType == TreasureKind::SHOES
-          pies = pies+1
+          @@pies += 1
         elsif tes.getType == TreasureKind::ARMOR
-          armadura = armadura+1
+          @@armadura += 1
         end
       end 
    
       if t.getType == TreasureKind::ONEHAND
-        manos < 2
+        @@manos < 2
       elsif t.getType == TreasureKind::BOTHHANDS
-        manos == 0
+        @@manos == 0
       elsif t.getType == TreasureKind::HELMET
-        casco == 0
+        @@casco == 0
       elsif t.getType == TreasureKind::SHOES
-        pies == 0
+        @@pies == 0
       elsif t.getType == TreasureKind::ARMOR
-        armadura == 0
+        @@armadura == 0
       end
     end
     
@@ -118,7 +124,7 @@ module NapakalakiGame
     end
     
     def dieIfNoTreasures
-      if @hiddenTreasures.empty? == true && @visibleTreasure.empty? == true
+      if @hiddenTreasures.empty? == true && @visibleTreasures.empty? == true
         @dead = true
       end
     end
@@ -141,11 +147,11 @@ module NapakalakiGame
       myLevel = getCombatLevel
       monsterLevel = m.getCombatLevel
       
-      if !(canIsteal)
+      if (!canISteal)
         dice = Dice.getInstance
-        number= dice.nextNumber
+        number = dice.nextNumber
         
-        if(mumber < 3)
+        if(number < 3)
           enemyLevel = @enemy.getCombatLevel
           monsterLevel += enemyLevel 
         end
@@ -161,7 +167,7 @@ module NapakalakiGame
         
       else
         combatResult = CombatResult::LOSE
-        applyBadConsecuence(m)
+        applyBadConsequence(m)
       end
       
       combatResult
@@ -170,15 +176,15 @@ module NapakalakiGame
     def makeTreasureVisible(t)
       canI = canMakeTreasureVisible(t)
       if canI
-        @visbleTreasures << t
+        @visibleTreasures << t
         @hiddenTreasures.delete(t)
       end
     end
     
     def discardHiddenTreasure(t)
       @hiddenTreasures.delete(t)
-      if((@pendingBadConsecuence != nil) && (@pendingBadConsecuence.isEmpty))
-        @pendingBadConsecuence.substractHiddenTreasures(t)
+      if((@pendingBadConsequence != nil) && (!@pendingBadConsequence.isEmpty))
+        @pendingBadConsequence.substractHiddenTreasures(t)
       end
       
       dieIfNoTreasures
@@ -186,19 +192,21 @@ module NapakalakiGame
     
     def discardVisibleTreasure(t)
       @visibleTreasures.delete(t)
-      if ((@pendingBadConsecuence != nil) && (!@pendingBadConsecuence.isEmpty))
-        @pendingBadConsecuence.substractVisibleTreasure(t)
+      if ((@pendingBadConsequence != nil) && (!@pendingBadConsequence.isEmpty))
+        @pendingBadConsequence.substractVisibleTreasures(t)
       end
       
       dieIfNoTreasures
     end
     
     def validState
-      if @visibleTreasures.size() < 4 && !(self.pendingBadConsequence())
-        return true
-      else 
-        return false
-      end
+      return false if (@hiddenTreasures.size > 4)
+      
+      return true if (@pendingBadConsequence == nil)
+      
+      return true if (@pendingBadConsequence.isEmpty)
+      
+      return false
     end
     
     def initTreasures
@@ -207,7 +215,7 @@ module NapakalakiGame
       
       bringToLife
       
-      treasure = dealer.nextTreassure
+      treasure = dealer.nextTreasure
       @hiddenTreasures << treasure
       
       number = dice.nextNumber
@@ -244,10 +252,10 @@ module NapakalakiGame
       @enemy = jugador
     end
     
-    private
+    public
     
     def giveMeATreasure
-      tesoro = @hiddenTreasures.at(rand(@hiddenTreasure.size))
+      tesoro = @hiddenTreasures.at(rand(@hiddenTreasures.size))
       @hiddenTreasures.delete(tesoro)
       return tesoro
     end 
@@ -258,10 +266,10 @@ module NapakalakiGame
       return @canISteal
     end
     
-    private 
+    public
     
     def canYouGiveMeATreasure
-      return !(@visibleTreasure.empty?)
+      return !(@visibleTreasures.empty?)
     end
     
     def haveStolen
@@ -278,6 +286,10 @@ module NapakalakiGame
       for hidT in @hiddenTreasures
         discardHiddenTreasure(hidT)
       end
+    end
+    
+    def to_s
+      "#{@name} \n\tNivel: #{@level} \n\tCombat Level: #{getCombatLevel}"
     end
   end
 end

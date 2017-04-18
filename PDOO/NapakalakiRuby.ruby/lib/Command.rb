@@ -1,4 +1,4 @@
-#encoding: utf-8
+# encoding: utf-8
 
 module Test
 
@@ -21,6 +21,7 @@ module Test
     DiscardHiddenTreasure = Option.new(22, "Descartar tesoro oculto")
     DiscardAll = Option.new(23, "Descartar TODOS los tesoros")
     MakeTreasureVisible = Option.new(31, "Equipar tesoro")
+    StealTreasure = Option.new(32, "Robar tesoro")
     NextTurn = Option.new(1, "Siguiente turno")
     NextTurnAllowed = Option.new(2, "Siguiente turno permitido")
     

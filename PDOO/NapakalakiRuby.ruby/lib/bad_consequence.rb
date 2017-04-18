@@ -1,5 +1,7 @@
 #encoding: utf-8
-#module Napakalaki
+
+require_relative "treasure_kind"
+require_relative "player"
 
 module NapakalakiGame
   
@@ -32,7 +34,7 @@ module NapakalakiGame
     end
 
     def self.newDeath (aText)
-      new(aText,0,0,0,[],[],true)    
+      new(aText,Player::MAXLEVEL,MAXTREASURES,MAXTREASURES,[],[],true)    
     end
     
     def isEmpty
@@ -70,7 +72,7 @@ module NapakalakiGame
           @specificVisibleTreasures.delete (t.getType)
         else
           @nVisibleTreasures = @nVisibleTreasures - 1
-          if (@nVisbleTreasures < 0)
+          if (@nVisibleTreasures < 0)
             @nVisibleTreasures = 0
           end
         end
@@ -91,27 +93,47 @@ module NapakalakiGame
     end
     
     def adjustToFitTreasureLists(v, h)
-      if (!isEmpty) 
-        if(@nVisbleTreasures  <= v.size)
-          nVT = @nVisibleTreasures
-        else
-          nVT = v.size
+      
+      if((@nVisibleTreasures)  < ( v.size + 1))
+        nVT = @nVisibleTreasures
+      else
+        nVT = v.size
+      end
+
+      if (@nHiddenTreasures < h.size + 1)
+        nHT = @nHiddenTreasures 
+      else 
+        nHT = h.size
+      end
+
+      vTypes = v.collect{ |vis| vis.getType}
+      hTypes = h.collect{ |hid| hid.getType}
+
+      specVT = Array.new
+      cpySpecVT = @specificVisibleTreasures.dup
+      specHT = Array.new 
+      cpySpecHT = @specificHiddenTreasures.dup
+        
+      
+      for visT in vTypes
+         if cpySpecVT.include?(visT)
+           specVT << visT
+           cpySpecVT.delete(visT)
+         end
+      end 
+      
+      for hidT in hTypes
+        if cpySpecHT.include?(hidT)
+          specHT << hidT
+          cpySpecHT.delete(hidT)
         end
-        
-        if (@nhiddenTreasures <= h.size)
-          nHT = @nHiddenTreasures 
-        else 
-          nHT = h.size
-        end
-        
-        vTypes = v.collect{ |vis| vis.getType}
-        hTypes = h.collect{ |hid| hid.getType}
-        
-        specVT = @specificVisibleTreasures & vTypes
-        specHT = @specificHiddenTreasures & hTypes
-        
-      BadConsequence.new("Bad Consequence Pendiente", 0, nVT, nHT, specVT, specHT,false)
-      end  
+      end
+     
+      if specVT.empty? && specHT.empty?
+        BadConsequence.newLevelNumberOfTreasures(@text, 0, nVT, nHT)
+      else
+        BadConsequence.newLevelSpecificTreasures(@text, 0, specVT, specHT)
+      end
     end
     
     def to_s
