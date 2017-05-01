@@ -29,7 +29,7 @@ module NapakalakiGame
     end
 
     def to_s
-      "\nTesoro: #{@name} \n\tTipo: #{@type} \n\tBonus: #{@bonus}\n"
+      "\n\t\tTesoro: #{getName} \n\t\tTipo: #{@type} \n\t\tBonus: #{@bonus}\n"
     end
 
   end

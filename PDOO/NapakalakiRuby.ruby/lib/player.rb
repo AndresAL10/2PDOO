@@ -11,7 +11,11 @@ module NapakalakiGame
   
   class Player
     
-    MAXLEVEL = 10
+    @@MAXLEVEL = 10
+    
+    def self.getMAXLEVEL
+      @@MAXLEVEL
+    end
     
     private
     
@@ -88,34 +92,34 @@ module NapakalakiGame
     end
     
     def canMakeTreasureVisible(t)
-      @@manos=0
-      @@armadura=0
-      @@casco=0
-      @@pies=0
+      manos=0
+      armadura=0
+      casco=0
+      pies=0
       for tes in @visibleTreasures
         if tes.getType == TreasureKind::ONEHAND
-          @@manos += 1
+          manos += 1
         elsif tes.getType == TreasureKind::BOTHHANDS
-          @@manos += 2
+          manos += 2
         elsif tes.getType == TreasureKind::HELMET
-          @@casco += 1
+          casco += 1
         elsif tes.getType == TreasureKind::SHOES
-          @@pies += 1
+          pies += 1
         elsif tes.getType == TreasureKind::ARMOR
-          @@armadura += 1
+          armadura += 1
         end
       end 
    
       if t.getType == TreasureKind::ONEHAND
-        @@manos < 2
+        manos < 2
       elsif t.getType == TreasureKind::BOTHHANDS
-        @@manos == 0
+        manos == 0
       elsif t.getType == TreasureKind::HELMET
-        @@casco == 0
+        casco == 0
       elsif t.getType == TreasureKind::SHOES
-        @@pies == 0
+        pies == 0
       elsif t.getType == TreasureKind::ARMOR
-        @@armadura == 0
+        armadura == 0
       end
     end
     
@@ -126,6 +130,7 @@ module NapakalakiGame
     def dieIfNoTreasures
       if @hiddenTreasures.empty? == true && @visibleTreasures.empty? == true
         @dead = true
+        @level = 1
       end
     end
     
@@ -148,7 +153,7 @@ module NapakalakiGame
       monsterLevel = m.getCombatLevel
       
       if (!canISteal)
-        dice = Dice.getInstance
+        dice = Dice.instance
         number = dice.nextNumber
         
         if(number < 3)
@@ -158,13 +163,13 @@ module NapakalakiGame
       end
       
       if ( myLevel > monsterLevel)
-        if(@level >= MAXLEVEL)
+        applyPrize(m)
+        
+        if(getLevels >= @@MAXLEVEL)
           combatResult = CombatResult::WINGAME
         else
           combatResult = CombatResult::WIN
-        end
-        applyPrize(m)
-        
+        end       
       else
         combatResult = CombatResult::LOSE
         applyBadConsequence(m)
@@ -231,7 +236,7 @@ module NapakalakiGame
     end   
     
     def getLevels
-      return @levels
+      return @level
     end
     
     def stealTreasure
@@ -279,17 +284,46 @@ module NapakalakiGame
     public 
     
     def discardAllTreasures
-      for visT in @visibleTreasures
+      visTreas = @visibleTreasures.dup
+      hidTreas = @hiddenTreasures.dup
+      
+      for visT in visTreas
         discardVisibleTreasure(visT)
       end
      
-      for hidT in @hiddenTreasures
+      for hidT in hidTreas
         discardHiddenTreasure(hidT)
       end
     end
     
     def to_s
-      "#{@name} \n\tNivel: #{@level} \n\tCombat Level: #{getCombatLevel}"
+      mensaje = "#{@name} \n\tNivel: #{@level} \n\tCombat Level: #{getCombatLevel} \n\tMuerto: "
+      if (@dead == true)
+        mensaje += "Si" 
+      else
+        mensaje += "No"
+      end
+      
+      if (@enemy == nil) 
+        mensaje += "\n\tEnemigo: No hay enemigo"
+      else
+        mensaje += "\n\tEnemigo: #{@enemy.getName}"
+      end
+      
+      mensaje += "\n\tTesoros visibles: "
+      
+      for t in @visibleTreasures
+        mensaje += t.to_s
+      end
+      
+      mensaje += "\n\tTesoros ocultos: "
+      
+      for t in @hiddenTreasures
+        mensaje += t.to_s
+      end
+      
+      mensaje += @pendingBadConsequence.to_s
+      
     end
   end
 end

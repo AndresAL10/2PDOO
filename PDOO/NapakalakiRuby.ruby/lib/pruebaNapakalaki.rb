@@ -1,7 +1,5 @@
 #encoding: utf-8
 
-#include
-
 require_relative "monster"
 require_relative "bad_consequence"
 require_relative "treasure_kind"
