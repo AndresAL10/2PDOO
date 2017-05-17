@@ -5,11 +5,12 @@ module NapakalakiGame
   class Cultist
   
     def initialize(name, gainedLevels)
-      @unusedCultists = Array.new
+      @name = name
+      @gainedLevels = gainedLevels
     end
     
     def getGainedLevels
-      
+      return @gainedLevels
     end
     
   end

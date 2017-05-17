@@ -37,6 +37,10 @@ module NapakalakiGame
       return @name
     end
     
+    def Player.copyPlayer(p)
+      new(p.getName, p.getLevels. p.isDead, p.pendingBadConsequence, p.getVisibleTreasures, p.getHiddenTreasures, p.canIsteal, p.enemy)
+    end
+    
     private
     
     def bringToLife
@@ -150,7 +154,7 @@ module NapakalakiGame
     
     def combat(m)
       myLevel = getCombatLevel
-      monsterLevel = m.getCombatLevel
+      monsterLevel = getOponentLevel(m)
       
       if (!canISteal)
         dice = Dice.instance
@@ -171,8 +175,12 @@ module NapakalakiGame
           combatResult = CombatResult::WIN
         end       
       else
-        combatResult = CombatResult::LOSE
         applyBadConsequence(m)
+        if shouldConvert 
+          combatResult = CombatResult::LOSEANDCONVERT
+        else
+          combatResult = CombatResult::LOSE
+        end       
       end
       
       combatResult
@@ -239,6 +247,10 @@ module NapakalakiGame
       return @level
     end
     
+    def getPendingBadConsequence
+      @pendingBadConsequence
+    end
+    
     def stealTreasure
       treasure = nil
       canI = canISteal
@@ -281,8 +293,27 @@ module NapakalakiGame
       @canISteal  = false
     end
     
+    protected
+    
+    def getOponentLevel(m)
+      m.getCombatLevel
+    end
+    
+    def shouldConvert
+      if (Dice.instance.nextNumber == 6)
+        should = true
+      else 
+        should = false
+      end
+      return should
+    end
+       
     public 
     
+    def getEnemy 
+      return @enemy
+    end
+       
     def discardAllTreasures
       visTreas = @visibleTreasures.dup
       hidTreas = @hiddenTreasures.dup

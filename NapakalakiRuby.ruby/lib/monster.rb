@@ -1,20 +1,16 @@
 #encoding: utf-8
 
-require_relative "prize"
-require_relative "bad_consequence"
-
 module NapakalakiGame
 
   class Monster
 
     private
     
-    def initialize( nombre, nivel, buenrollo, malrollo, ic=0)
+    def initialize( nombre, nivel, buenrollo, malrollo)
       @name = nombre
       @combatLevel = nivel
       @prize = buenrollo
       @badConsequence = malrollo 
-      @levelChangeAgainstCultistPlayer = ic
     end
     
     public 
@@ -25,10 +21,6 @@ module NapakalakiGame
     
     def getCombatLevel
       return @combatLevel
-    end
-    def getCombatLevelAgainstCultistPlayer
-      level = @combatLevel + @levelChangeAgainstCultistPlayer
-      return level
     end
     
     def getBadConsequence
