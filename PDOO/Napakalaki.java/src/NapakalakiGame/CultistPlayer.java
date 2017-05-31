@@ -32,6 +32,11 @@ public class CultistPlayer extends Player{
     }
     
     @Override
+    public boolean canYouGiveMeATreasure(){
+        return !getVisibleTreasures().isEmpty();
+    }
+    
+    @Override
     public Treasure giveMeATreasure(){
         Treasure tesoro = getVisibleTreasures().get((int) (Math.random()*getVisibleTreasures().size()-1));
         return tesoro;

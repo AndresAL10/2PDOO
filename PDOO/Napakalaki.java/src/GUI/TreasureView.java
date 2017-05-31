@@ -5,7 +5,7 @@ import java.awt.Color;
 
 /**
  *
- * @author Andres Arco Lopez
+ * @author Andres Arco Lopez y Miguel Cantarero Lopez
  */
 
 public class TreasureView extends javax.swing.JPanel {

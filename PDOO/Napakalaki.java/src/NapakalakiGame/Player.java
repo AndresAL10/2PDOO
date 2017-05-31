@@ -311,12 +311,8 @@ public class Player {
         return canISteal;
     }
     
-    private boolean canYouGiveMeATreasure(){
-        boolean can = true;
-        if(visibleTreasures.isEmpty() && hiddenTreasures.isEmpty() || visibleTreasures == null && hiddenTreasures == null){
-            can = false;
-        }
-        return can;
+    public boolean canYouGiveMeATreasure(){
+        return !hiddenTreasures.isEmpty();
     }
     
     private void haveStolen(){
