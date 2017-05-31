@@ -1,11 +1,11 @@
 #encoding: utf-8
 
-require "singleton"
-require_relative "card_dealer"
-require_relative "player"
+require 'singleton'
+require_relative 'card_dealer'
+require_relative 'player'
 require_relative 'combat_result'
 require_relative 'cultist_player'
-
+require_relative 'monster'
 
 module NapakalakiGame
   

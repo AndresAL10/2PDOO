@@ -1,13 +1,13 @@
 #encoding: utf-8
 
-require_relative "prize"
-require_relative "bad_consequence"
+require_relative 'prize'
+require_relative 'death_bad_consequence'
+require_relative 'specific_bad_consequence'
+require_relative 'numeric_bad_consequence'
 
 module NapakalakiGame
 
   class Monster
-
-    private
     
     def initialize( nombre, nivel, buenrollo, malrollo, ic=0)
       @name = nombre
@@ -16,8 +16,6 @@ module NapakalakiGame
       @badConsequence = malrollo 
       @levelChangeAgainstCultistPlayer = ic
     end
-    
-    public 
     
     def getName
       return @name

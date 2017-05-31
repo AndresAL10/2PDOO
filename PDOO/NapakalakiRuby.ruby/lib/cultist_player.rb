@@ -1,12 +1,7 @@
 #encoding: utf-8
 
-require_relative 'treasure'
-require_relative 'monster'
-require_relative 'treasure_kind'
-require_relative 'combat_result'
-require_relative 'dice'
+require_relative 'cultist'
 require_relative 'player'
-
 
 module NapakalakiGame
   

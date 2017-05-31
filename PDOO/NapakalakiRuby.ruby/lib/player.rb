@@ -1,11 +1,11 @@
 #encoding: utf-8
 
-require_relative "treasure"
-require_relative "bad_consequence"
-require_relative "combat_result"
-require_relative "prize"
-require_relative "card_dealer"
-require_relative "dice"
+require_relative 'treasure'
+require_relative 'combat_result'
+require_relative 'card_dealer'
+require_relative 'bad_consequence'
+require_relative 'dice'
+
 
 module NapakalakiGame
   
@@ -32,7 +32,10 @@ module NapakalakiGame
     end
     
     public 
-    
+    def metodo(t)
+      @hiddenTreasures << t
+      
+    end
     def getName
       return @name
     end

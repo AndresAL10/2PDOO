@@ -1,6 +1,6 @@
 #encoding: utf-8
 
-require_relative "treasure_kind"
+require_relative 'treasure_kind'
 
 module NapakalakiGame
 

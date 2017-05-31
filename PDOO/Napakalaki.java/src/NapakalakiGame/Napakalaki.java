@@ -10,12 +10,10 @@ import java.util.Random;
 
 public class Napakalaki {
     
-    //esto en el diagrama de la p2 no inicializa a null
     private static final Napakalaki instance = new Napakalaki(); 
-    // Hay cosas sin inizializar
     private Monster currentMonster;
     private CardDealer dealer = CardDealer.getInstance();
-    private Player currentPlayer;
+    public Player currentPlayer;
     private ArrayList<Player> players;
     
     private Napakalaki(){
@@ -80,9 +78,21 @@ public class Napakalaki {
     
     public CombatResult developCombat(){
         CombatResult combatResult = currentPlayer.combat(currentMonster);
+        
+        if(combatResult==CombatResult.LOSEANDCONVERT){
+            CultistPlayer sectario = new CultistPlayer(currentPlayer, CardDealer.getInstance().nextCultist());
+            
+            for(Player p:players){
+                if(p.getEnemy()==currentPlayer)
+                    p.setEnemy(sectario);
+            }
+        
+            players.set(players.indexOf(currentPlayer),sectario);
+            currentPlayer = sectario;
+        }
+        
         CardDealer.getInstance().giveMonsterBack(currentMonster);
         return combatResult;
-        
     }
     
     public void discardVisibleTreasures(ArrayList <Treasure> treasures){

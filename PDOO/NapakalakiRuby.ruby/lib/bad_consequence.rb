@@ -1,18 +1,14 @@
 #encoding: utf-8
 
-require_relative "treasure_kind"
-require_relative "player"
+require_relative 'treasure_kind'
+require_relative 'player'
 
 module NapakalakiGame
   
   class BadConsequence
-
-    private_class_method :new
      
     MAXTREASURES = 10
-    
-    private 
-    
+=begin
     def initialize(atext, someLevels, someVisibleTreasures,someHiddenTreasures,someSpecificVisibleTreasures,someSpecificHiddenTreasures,death)
           @text = atext
           @levels = someLevels
@@ -22,9 +18,14 @@ module NapakalakiGame
           @specificHiddenTreasures = someSpecificHiddenTreasures
           @death = death
     end
+=end
+    def initialize(atext, somelevels)
+          @text = atext
+          @levels = somelevels
+    end
     
     public
-    
+=begin
     def self.newLevelNumberOfTreasures(aText, someLevels,someVisibleTreasures, someHiddenTreasures)
       new(aText,someLevels,someVisibleTreasures,someHiddenTreasures,[],[],false)
     end
@@ -36,7 +37,7 @@ module NapakalakiGame
     def self.newDeath (aText)
       new(aText,Player.getMAXLEVEL,MAXTREASURES,MAXTREASURES,[],[],true)    
     end
-    
+
     def isEmpty
       if @nVisibleTreasures == 0 && @nHiddenTreasures == 0 && @specificVisibleTreasures.empty? && @specificHiddenTreasures.empty?
         empty = true
@@ -45,14 +46,19 @@ module NapakalakiGame
       end
       return empty
     end
-    
+=end
     def getLevels
       return @levels      
     end
+    def getText
+      return @text
+    end
     
+=begin    
     def getNVisibleTreasures
       return @nVisibleTreasures
     end
+ 
     
     def getNHiddenTreasures
       return @nHiddenTreasures
@@ -65,7 +71,8 @@ module NapakalakiGame
     def getSpecificVisibleTreasures
       return @specificVisibleTreasures
     end
-    
+=end
+=begin
     def substractVisibleTreasures(t)
       if (!isEmpty)
         if (!@specificVisibleTreasures.empty?)
@@ -95,7 +102,7 @@ module NapakalakiGame
         end
       end
     end
-    
+
     def adjustToFitTreasureLists(v, h)
       vTypes = Array.new
       hTypes = Array.new
@@ -144,22 +151,15 @@ module NapakalakiGame
         BadConsequence.newLevelSpecificTreasures(@text, 0, specVT, specHT)
       end
     end
-    
+=end    
+  
     def to_s
-        mensaje = "\n\tTexto: #{@text}\n\tNiveles perdidos: #{@levels}"   
-        mensaje += "\n\tTesoros visibles perdidos: #{@nVisibleTreasures}"
-        mensaje += "\n\tTesoros ocultos perdidos: #{@nHiddenTreasures}"
-        mensaje += "\n\tTesoros especificos visibles perdidos: #{@specificVisibleTreasures}"
-        mensaje += "\n\tTesoros especificos ocultos perdidos: #{@specificHiddenTreasures}"
-
-        if @death
-          mensaje += "\n\tMuerte: Si"
-        else
-          mensaje += "\n\tMuerte: No"
-        end
-        
-        mensaje
-    end
+    cadena = "#{@text}"
+    if @levels != 0 then
+        cadena += "\nLevels_Down = #{@levels}"
+      end
+    cadena
+  end
 
   end  
 end

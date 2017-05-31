@@ -6,6 +6,8 @@ module NapakalakiGame
 
     attr_reader :treasures, :level
 
+    public  
+    
     def initialize(treasures, levels)
       @treasures = treasures
       @level = levels

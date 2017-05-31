@@ -7,12 +7,10 @@ package NapakalakiGame;
  */
 public class Monster {
     private String name;
-    
     private int combatLevel;
-    
     private Prize prize;
-    
     private BadConsequence badConsequence;
+    private int levelChangeAgainstCultistPlayer = 0;
     
     public Monster(String name, int level, BadConsequence bc, Prize prize){
         this.name=name;
@@ -21,12 +19,23 @@ public class Monster {
         this.prize=prize;
     }
     
+    public Monster(String name, int level, BadConsequence bc, Prize prize, int levelChange){
+        this.name=name;
+        this.combatLevel=level;
+        this.badConsequence=bc;
+        this.prize=prize;
+        this.levelChangeAgainstCultistPlayer = levelChange;
+    }
+    
     public String getName(){
         return name;
     }
        
     public int getCombatLevel(){
         return combatLevel;
+    }
+    public int getCombatLevelAgainstCultistPlayer(){
+        return combatLevel + levelChangeAgainstCultistPlayer;
     }
     
     public Prize getPrize(){
